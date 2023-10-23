@@ -1,0 +1,80 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Programmer: [Your Name]
+// Project Name: ATM System
+// Project Number: [Project Number]
+// Date Written: [Date]
+// Program Description: This program simulates an ATM system where a user can authenticate using a username and password. 
+// It allows the user to deposit money into either a savings or checking account and provides feedback on the transaction.
+// All monetary values are whole dollars.
+
+// Function to authenticate the user
+bool authenticateUser(const string& username, const string& password) {
+    return (username == "rbrown" && password == "blue123");
+}
+
+// Function to deposit money into the selected account
+void depositMoney(double& account, double amount, const string& accountType) {
+    account += amount;
+    cout << "Deposit of $" << amount << " into " << accountType << " account is successful." << endl;
+}
+
+int main() {
+    string username, password;
+    double savingsAccount = 2500.00;
+    double checkingAccount = 35.00;
+
+    // Prompt the user for credentials
+    cout << "Welcome to the ATM System" << endl;
+    cout << "Username: ";
+    cin >> username;
+    cout << "Password: ";
+    cin >> password;
+
+    // Authenticate the user
+    if (authenticateUser(username, password)) {
+        cout << "Authentication successful. Welcome, Robert Brown!" << endl;
+
+        // Offer account selection
+        int choice;
+        cout << "Select an account to deposit into:" << endl;
+        cout << "1. Savings Account" << endl;
+        cout << "2. Checking Account" << endl;
+        cout << "Enter your choice (1 or 2): ";
+        cin >> choice;
+
+        if (choice == 1) {
+            double amount;
+            cout << "Enter the amount to deposit into Savings Account: $";
+            cin >> amount;
+            if (amount > 0) {
+                depositMoney(savingsAccount, amount, "Savings");
+            } else {
+                cout << "Invalid deposit amount. Please enter a positive amount." << endl;
+            }
+        } else if (choice == 2) {
+            double amount;
+            cout << "Enter the amount to deposit into Checking Account: $";
+            cin >> amount;
+            if (amount > 0) {
+                depositMoney(checkingAccount, amount, "Checking");
+            } else {
+                cout << "Invalid deposit amount. Please enter a positive amount." << endl;
+            }
+        } else {
+            cout << "Invalid account selection. Please choose 1 for Savings Account or 2 for Checking Account." << endl;
+        }
+
+        // Display updated account balances
+        cout << "Updated Account Balances:" << endl;
+        cout << "Savings Account: $" << savingsAccount << endl;
+        cout << "Checking Account: $" << checkingAccount << endl;
+    } else {
+        cout << "Authentication failed. Please check your username and password." << endl;
+    }
+
+    return 0;
+}
